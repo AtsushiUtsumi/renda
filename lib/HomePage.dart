@@ -3,8 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
+import 'package:renda/HighScore.dart';
+import 'package:renda/global.dart';
 import 'PlayPage.dart';
 import 'main.dart';
+import 'global.dart';
 
 void myInit() {
   //これ不要
@@ -30,7 +33,7 @@ Container cr() {
                   child: Align(
                 alignment: Alignment.bottomLeft,
                 child: const Text(
-                    'SOUND EFFECT:\n未定\nFONT:\nフォント\nICON:\nアイコン\nBACKGROUND:\n背景\nSPECIAL THANKS:\n生姜焼きのタレ\n:(c)2021 sinProject\n',
+                    'FONT:\nフォント\nICON:\nアイコン\nBACKGROUND:\n背景\nSPECIAL THANKS:\n生姜焼きのタレ\n:(c)2021 sinProject\n',
                     style: TextStyle(fontSize: 12, color: Colors.yellow)),
               ))
               ),
@@ -73,91 +76,7 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.only(bottom: 50),
                 constraints: BoxConstraints.expand(), //これでいっぱいいっぱいに広がる
                 child: Column(children: [
-                  Expanded(
-                      flex: 2,
-                      child: Container(
-                        constraints: BoxConstraints.expand(),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.center,
-                                    child: const Text(
-                                      '10s',
-                                      style: TextStyle(
-                                        color: Colors.yellow,
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      highScore[0] >= 0
-                                          ? highScore[0].toString()
-                                          : '---',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.center,
-                                    child: const Text(
-                                      '60s',
-                                      style: TextStyle(
-                                        color: Colors.yellow,
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      highScore[1] >= 0
-                                          ? highScore[1].toString()
-                                          : '---',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.center,
-                                    child: const Text(
-                                      'ENDLESS',
-                                      style: TextStyle(
-                                        color: Colors.yellow,
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      highScore[2] >= 0
-                                          ? highScore[2].toString()
-                                          : '---',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        //child: testB()
-                      )),
+                  Expanded(flex: 2,child: highScoreBoard()),
                   Expanded(
                       flex: 3,
                       child: Column(
@@ -190,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                       child: GestureDetector(
                         child: Container(
                           child: Align(//ここに
-                            child: Text(pName),
+                            child: Text(pName=='' ? 'プレーヤー名未入力':pName),
                           ),
                         ),
                         onTap: () {
@@ -202,125 +121,136 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Expanded(
-                      flex: 2,
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                        child: Row(
+                      flex: 3,
+                      child: pName=='' ? Container():Container(
+                        constraints: BoxConstraints.expand(),
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: Column(
                           children: [
                             Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.red
-                                      .withOpacity(mode == 0 ? 0.2 : 0),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    side: BorderSide(
-                                        style: BorderStyle.solid,
-                                        width: 1,
-                                        color: Colors.red),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    mode = 0;
-                                  });
-                                },
+                                flex: 2,
                                 child: Container(
-                                    child: Text(
-                                  '10s',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 15),
+                                  //padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.red
+                                                    .withOpacity(mode == 0 ? 0.2 : 0),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10.0),
+                                                  side: BorderSide(
+                                                      style: BorderStyle.solid,
+                                                      width: 1,
+                                                      color: Colors.red),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  mode = 0;
+                                                });
+                                              },
+                                              child: Container(
+                                                  child: Text(
+                                                    '10s',
+                                                    style: TextStyle(
+                                                        color: Colors.white, fontSize: 15),
+                                                  )),
+                                            ),
+                                          )),
+                                      Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.red.withOpacity(mode == 1
+                                                    ? 0.2
+                                                    : 0), //ボタンそのものの色透過させたいのでこの設定
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10.0),
+                                                  side: BorderSide(
+                                                      style: BorderStyle.solid,
+                                                      width: 1,
+                                                      color: Colors.red),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  mode = 1;
+                                                });
+                                              },
+                                              child: Text(
+                                                '60s',
+                                                style: TextStyle(
+                                                    color: Colors.white, fontSize: 15),
+                                              ),
+                                            ),
+                                          )),
+                                      Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.red
+                                                    .withOpacity(mode == 2 ? 0.2 : 0),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10.0),
+                                                  side: BorderSide(
+                                                      style: BorderStyle.solid,
+                                                      width: 1,
+                                                      color: Colors.red),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  mode = 2;
+                                                });
+                                              },
+                                              child: Text(
+                                                'ENDLESS',
+                                                style: TextStyle(
+                                                    color: Colors.white, fontSize: 13),
+                                              ),
+                                            ),
+                                          )),
+                                    ],
+                                  ),
                                 )),
-                              ),
-                            )),
                             Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.red.withOpacity(mode == 1
-                                      ? 0.2
-                                      : 0), //ボタンそのものの色透過させたいのでこの設定
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    side: BorderSide(
-                                        style: BorderStyle.solid,
-                                        width: 1,
-                                        color: Colors.red),
+                              flex: 2,
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    myInit();
+                                    Navigator.of(context).pushNamed('/play');
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.red
+                                        .withOpacity(0.2), //ボタンそのものの色透過させたいのでこの設定
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      side: BorderSide(
+                                          style: BorderStyle.solid,
+                                          width: 1,
+                                          color: Colors.red),
+                                    ),
                                   ),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    mode = 1;
-                                  });
-                                },
-                                child: Text(
-                                  '60s',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 15),
+                                  child: Container(
+                                      child: const Align(
+                                          child: const Text(
+                                            'PLAY!',
+                                            style: TextStyle(color: Colors.white, fontSize: 20),
+                                          ))),
                                 ),
                               ),
-                            )),
-                            Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.red
-                                      .withOpacity(mode == 2 ? 0.2 : 0),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    side: BorderSide(
-                                        style: BorderStyle.solid,
-                                        width: 1,
-                                        color: Colors.red),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    mode = 2;
-                                  });
-                                },
-                                child: Text(
-                                  'ENDLESS',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 13),
-                                ),
-                              ),
-                            )),
+                            ),
                           ],
                         ),
-                      )),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          myInit();
-                          Navigator.of(context).pushNamed('/play');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.red
-                              .withOpacity(0.2), //ボタンそのものの色透過させたいのでこの設定
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            side: BorderSide(
-                                style: BorderStyle.solid,
-                                width: 1,
-                                color: Colors.red),
-                          ),
-                        ),
-                        child: Container(
-                            child: const Align(
-                                child: const Text(
-                          'PLAY!',
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ))),
-                      ),
-                    ),
+                      )
                   ),
                   Expanded(
                     flex: 10,
@@ -347,28 +277,27 @@ class NameInput extends StatefulWidget {
 class _NameInputState extends State<NameInput> {
   @override
   Widget build(BuildContext context) {
-    print('NameInputステートは' + context.hashCode.toString());
     return sctest(context);
   }
 }
 
 
 Container sctest(BuildContext context){
-  print('コンテナは'+context.hashCode.toString());
   String _tmp = '';
-
-  ///////////////////////////
-  _showMyDialog(context);
-  print(_tmp);
-  ///////////////////////////
-
-
   return Container(
-    color: Colors.yellow,
     child: Row(
       children: [
-        //Expanded(flex: 3,child: Scaffold(body: TextField(onChanged: (value){_tmp = value;},),)),
-        Expanded(flex: 1,child: ElevatedButton(onPressed: (){pName = _tmp;pName  ='せと';print('カレントユーザーを' + pName+'に変更');Navigator.pushNamed(context, '/home');},child: Text('OK'),))
+        Expanded(flex: 3,child:TextField(onChanged: (value){_tmp = value;},),),
+        Expanded(
+            flex: 1,
+            child: ElevatedButton(
+              onPressed: (){
+                pName = _tmp;
+                Navigator.pushNamed(context, '/home');
+                },
+              child: Text('OK'),
+            )
+        )
       ],
     ),
   );
@@ -379,7 +308,9 @@ Future<void> _showMyDialog(BuildContext context) async {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(backgroundColor: Colors.red,content: TextField());
+      return AlertDialog(
+          content: sctest(context),
+      );
     },
   );
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'global.dart';
 
 int showb = 1;
 int elapsedTime = 0;//経過時間
@@ -30,7 +31,6 @@ class _PlayPageState extends State<PlayPage> {
 
   bool timeMove = false;
   int startTime = 0;
-  //int _counter = 0;//これ
   Future<void> timerStart() async{
     if(!shouldMove){print('ストリームの元栓にロックがかかっています。shouldMove=trueにしてから呼んで下さい。');}
     if(timeMove){return;}//すでにタイマーが起動中
@@ -45,7 +45,6 @@ class _PlayPageState extends State<PlayPage> {
     elapsedTime = limitTime[mode];//これ絶対0になるはずなんですが...
     timeMove = false;
     shouldMove = false;
-    //setState(() {});
     scoreBoard = 'Time\'s up';
     return;
   }
@@ -63,11 +62,9 @@ class _PlayPageState extends State<PlayPage> {
     if(elapsedTime>=limitTime[mode]){elapsedTime = limitTime[mode];}
     if(elapsedTime==limitTime[mode] && showb==1){//正常クリアしたときの処理
       if(showb==1){
-        if(score>highScore[mode]){
-          highScore[mode] = score;
-          data[pName]![mode] = score;print(pName+'がハイスコアを出しました' + score.toString());
-        }
-        setState(() {showb = 0;});//print('グリッド消したい');
+        //if(score>highScore[mode]){highScore[mode] = score;data[pName]![mode] = score;print(pName+'がハイスコアを出しました' + score.toString());}
+        setUserData(pName, mode, score);
+        setState(() {showb = 0;});
       }
     }else{timeBoard = ms2string(elapsedTime
     );}
@@ -81,9 +78,6 @@ class _PlayPageState extends State<PlayPage> {
 
   @override
   Widget build(BuildContext context) {
-    ////
-    //return Container(child: FooWidget(),);
-    ////
     return Scaffold(body: SafeArea(child: Stack(children: [Container(child: back,constraints: BoxConstraints.expand(),),
         Container(padding: EdgeInsets.only(bottom: 50),child: Column(children: [
                   Expanded(
