@@ -4,13 +4,30 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 import 'global.dart';
 
+String scoreBoard = '';
+
+void playInit(int mode){//PLAYボタンを押した時ページ遷移の前に呼ばれる
+  if(mode==2){
+    if(getUserData(pName, 2)=='---'){score = 0;}else{score = data[pName]![2];}
+    scoreBoard = score.toString();
+  }else{
+    scoreBoard = '   Press any\nbutton to start';
+  }
+  return;
+}
+
+
+
+
+
+
 int showb = 1;
 int elapsedTime = 0;//経過時間
 
 final limitTime = [10000,60000,-1];//ミリ秒で時間制限
 final ini = ['10.00','60.00','NO LIMIT'];
 
-List<int> highScore = List.generate(3, (index) => 0);
+//List<int> highScore = List.generate(3, (index) => 0);
 
 class PlayPage extends StatefulWidget {
   @override
@@ -48,12 +65,12 @@ class _PlayPageState extends State<PlayPage> {
     scoreBoard = 'Time\'s up';
     return;
   }
-  
+
   String ms2string(int ms){
     String tmp = (ms.toString().padLeft(5,'0'));
     return tmp[0]+tmp[1]+'.'+tmp[2]+tmp[3];
   }
-  
+
   void _decrementCounter() {//ここ放置少女で言えばテロップに流す処理時間
     //TODO:ここでエンドレスならガードすべき
     if(mode==2){return;}
@@ -73,8 +90,6 @@ class _PlayPageState extends State<PlayPage> {
   //////////////////////////////////////
 
   int nowPlaying = 0; //プレイ中なら1boolにすべきじゃない?
-
-  String scoreBoard = '   Press any\nbutton to start';
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +117,9 @@ class _PlayPageState extends State<PlayPage> {
                           ),
                           Expanded(
                               flex: 1,
-                              child: Align(
-                                alignment: Alignment.center,
+                              child: Container(//TODO:ここ文字の位置とパディング調整が必要
+                                constraints: BoxConstraints.expand(),
+                                //alignment: Alignment.center,
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     primary: Colors.transparent, //ボタンそのものの色透過させたいのでこの設定
@@ -127,6 +143,7 @@ class _PlayPageState extends State<PlayPage> {
                                     shouldMove = false;
                                     timeMove = false;
                                     startTime = 0;
+                                    score = 0;//これどこで定義されてる
                                     Navigator.of(context).pushNamed('/home');
                                   }, //QUITボタンを押してリセット
                                 ),
@@ -178,13 +195,18 @@ class _PlayPageState extends State<PlayPage> {
                                           ),
                                         ),
                                         onPressed: () {
-                                          if(mode==2){highScore[2] = score;data[pName]![mode] = score;}
+                                        if(mode==2){//エンドレスモード
+                                          score++;setUserData(pName, 2, score);
+                                          //setState((){scoreBoard = score.toString();});
+                                        }else{//ノーマルモード
                                           if (nowPlaying==0) {//初タッチ
                                             nowPlaying = 1;
                                             shouldMove = true;
-                                            if(mode<2)timerStart();
+                                            timerStart();
                                           }else{score++;}
-                                            setState((){scoreBoard = score.toString();});
+                                            //setState((){scoreBoard = score.toString();});
+                                        }
+                                        setState((){scoreBoard = score.toString();});
                                         },
                                     ));
                               })),

@@ -1,7 +1,7 @@
 const modeName = ['10s','60s','ENDLESS'];
-String pName = '';
+String pName = '内海';
 
-Map<String,List<int>> data = {};//= {'':[-1,-1,-1]};
+Map<String,List<int>> data = {};
 
 void setUserData(String username,int mode,int score){//ハイスコアを登録
   if(mode<0 || mode>2){print('不正なモード : '+mode.toString());return;}
@@ -9,7 +9,6 @@ void setUserData(String username,int mode,int score){//ハイスコアを登録
     if(data[username]![mode]<score){data[username]![mode] = score;}
   }else{
     data[username] = [-1,-1,-1];
-    //print(data.toString());
   }
   return;
 }

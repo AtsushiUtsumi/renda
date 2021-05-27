@@ -27,7 +27,7 @@ Container cr() {
       children: [
         Expanded(
           flex: 1,
-          child: Container(
+          child: Container(//TODO:この左パディングのバランスを整える
               padding: EdgeInsets.all(20),
               child: Container(
                   child: Align(
@@ -106,6 +106,7 @@ class _HomePageState extends State<HomePage> {
                   Expanded(
                     flex: 1,
                     child: Container(
+                      margin: EdgeInsets.only(bottom: 5),
                       child: GestureDetector(
                         child: Container(
                           child: Align(//ここに
@@ -128,9 +129,9 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           children: [
                             Expanded(
-                                flex: 2,
+                                flex: 4,
                                 child: Container(
-                                  //padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
                                   child: Row(
                                     children: [
                                       Expanded(
@@ -220,11 +221,12 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 )),
                             Expanded(
-                              flex: 2,
+                              flex: 4,
                               child: Container(
-                                margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
                                 child: ElevatedButton(
                                   onPressed: () {
+                                    playInit(mode);
                                     myInit();
                                     Navigator.of(context).pushNamed('/play');
                                   },
@@ -285,6 +287,7 @@ class _NameInputState extends State<NameInput> {
 Container sctest(BuildContext context){
   String _tmp = '';
   return Container(
+    //padding: EdgeInsets.only(bottom: 30),
     child: Row(
       children: [
         Expanded(flex: 3,child:TextField(onChanged: (value){_tmp = value;},),),
