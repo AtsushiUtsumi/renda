@@ -29,6 +29,7 @@ int mode = 0; //基本は数字のモード
 int score = 0;
 int numOfCards = 16;
 void main() {
+  //runApp(AppDebug());
   runApp(App());
 }
 
@@ -69,6 +70,24 @@ class Splash extends StatelessWidget {//スプラッシュ的な画像
           size: MediaQuery.of(context).size.width * 0.785,
         ),
       ),
+    );
+  }
+}
+
+
+////////////////////////////////
+
+class AppDebug extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(fontFamily: 'NewFont'),
+      routes: {
+        //'/play': (BuildContext context) => PlayPage(),//いったんこっちを最初に表示してみる
+        '/home': (BuildContext context) => HomePage(), //初期画面をこっちにしたい
+      },
+
+      home: HomePage(),
     );
   }
 }

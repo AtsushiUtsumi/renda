@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'main.dart';
 import 'global.dart';
 
@@ -96,10 +97,9 @@ class _PlayPageState extends State<PlayPage> {
     return Scaffold(body: SafeArea(child: Stack(children: [Container(child: back,constraints: BoxConstraints.expand(),),
         Container(padding: EdgeInsets.only(bottom: 50),child: Column(children: [
                   Expanded(
-                      flex: 3, //これで一番上のQUIT調節
+                      flex: 4, //これで一番上のQUIT調節
                       child: Row(
                         children: [
-                          //Expanded(flex: 1,child: FooWidget(),),
                           Expanded(
                             flex: 1,
                             child: Center(
@@ -119,7 +119,7 @@ class _PlayPageState extends State<PlayPage> {
                               flex: 1,
                               child: Container(//TODO:ここ文字の位置とパディング調整が必要
                                 constraints: BoxConstraints.expand(),
-                                //alignment: Alignment.center,
+                                margin: EdgeInsets.only(top: 3,right: 7),
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     primary: Colors.transparent, //ボタンそのものの色透過させたいのでこの設定
@@ -133,9 +133,12 @@ class _PlayPageState extends State<PlayPage> {
                                           color: Colors.red),
                                     ),
                                   ),
-                                  child: const Text(
-                                    'QUIT',
-                                    style: TextStyle(fontSize: 25, color: Colors.white),
+                                  child: Container(
+                                    padding: EdgeInsets.only(bottom: 5),
+                                    child: const Text(
+                                      'QUIT',
+                                      style: TextStyle(fontSize: 25, color: Colors.white,),
+                                    ),
                                   ),
                                   onPressed: () {
                                     //初期化しないといけないのはこの5つだけ?
@@ -199,6 +202,7 @@ class _PlayPageState extends State<PlayPage> {
                                           score++;setUserData(pName, 2, score);
                                           //setState((){scoreBoard = score.toString();});
                                         }else{//ノーマルモード
+                                          if(showb==0){return;}
                                           if (nowPlaying==0) {//初タッチ
                                             nowPlaying = 1;
                                             shouldMove = true;

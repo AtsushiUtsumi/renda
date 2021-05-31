@@ -28,13 +28,13 @@ Container cr() {
         Expanded(
           flex: 1,
           child: Container(//TODO:この左パディングのバランスを整える
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.only(top: 10,left: 10),
               child: Container(
                   child: Align(
-                alignment: Alignment.bottomLeft,
+                alignment: Alignment.topLeft,
                 child: const Text(
-                    'FONT:\nフォント\nICON:\nアイコン\nBACKGROUND:\n背景\nSPECIAL THANKS:\n生姜焼きのタレ\n:(c)2021 sinProject\n',
-                    style: TextStyle(fontSize: 12, color: Colors.yellow)),
+                    'FONT : フォント\nICON : アイコン\nBACKGROUND : 背景\nSPECIAL THANKS :\n生姜焼きのタレ\n(c)2021 sinProject\n',
+                    style: TextStyle(fontSize: 13, color: Colors.yellow)),
               ))
               ),
         ),
@@ -57,9 +57,16 @@ Container cr() {
     ),
   );
 }
-
+/*
+Container myButton(_HomePageState pointer){
+  return Container(child: ElevatedButton(onPressed: (){pointer.setState(() {
+    mode = (mode+1)%3;print(mode.toString()+'にモードチェンジ');
+  });}, child: Text('引き継ぎたい')));
+}
+*/
 //以下ホームページのメイン
 /////////////////////////////////////////////////////////////////////////
+
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
@@ -81,6 +88,7 @@ class _HomePageState extends State<HomePage> {
                       flex: 3,
                       child: Column(
                         children: [
+                          //myButton(this),
                           const Align(
                             alignment: Alignment.center,
                             child: const Text(
@@ -109,6 +117,27 @@ class _HomePageState extends State<HomePage> {
                       margin: EdgeInsets.only(bottom: 5),
                       child: GestureDetector(
                         child: Container(
+                          //constraints: BoxConstraints.expand(),
+
+                            child: Text(pName=='' ? 'プレーヤー名未入力':pName,textAlign: TextAlign.center,),
+
+                        ),
+                        onTap: () {
+                          _showMyDialog(context);
+                        },
+                      ),
+                      width: 250,
+                      color: Colors.white,
+                    ),
+                  ),
+                  ///////////////////////////////////////////////////////////////
+                  /*
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 5),
+                      child: GestureDetector(
+                        child: Container(
                           child: Align(//ここに
                             child: Text(pName=='' ? 'プレーヤー名未入力':pName),
                           ),
@@ -121,6 +150,8 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.white,
                     ),
                   ),
+                  */
+                  ///////////////////////////////////////////////////////////////
                   Expanded(
                       flex: 3,
                       child: pName=='' ? Container():Container(
@@ -285,12 +316,19 @@ class _NameInputState extends State<NameInput> {
 
 
 Container sctest(BuildContext context){
-  String _tmp = '';
+  String _tmp = pName;
   return Container(
+    //constraints: BoxConstraints.expand(),
     //padding: EdgeInsets.only(bottom: 30),
     child: Row(
       children: [
-        Expanded(flex: 3,child:TextField(onChanged: (value){_tmp = value;},),),
+        Expanded(
+            flex: 3,
+            child:TextField(
+                controller: TextEditingController(text: pName),
+                onChanged: (value){_tmp = value;}
+                )
+        ),
         Expanded(
             flex: 1,
             child: ElevatedButton(
@@ -311,9 +349,7 @@ Future<void> _showMyDialog(BuildContext context) async {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
-          content: sctest(context),
-      );
+      return AlertDialog(content: sctest(context),);
     },
   );
 }
