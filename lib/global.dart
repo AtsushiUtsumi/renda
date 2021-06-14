@@ -16,7 +16,7 @@ void setUserData(String username,int mode,int score){//ハイスコアを登録
 String getUserData(String username,int mode){//スコアを取得ご新規さんなら-1で初期登録
   if(data.containsKey(username)){
     int scoreTmp = data[username]![mode];
-    return scoreTmp>=0? scoreTmp.toString():'---';
+    return scoreTmp>0? scoreTmp.toString():'---';
   }else{
     setUserData(username, mode, -1);
     return '---';

@@ -147,6 +147,7 @@ class _PlayPageState extends State<PlayPage> {
                                     timeMove = false;
                                     startTime = 0;
                                     score = 0;//これどこで定義されてる
+                                    if(data[pName]![mode]==-1){score = -1;}
                                     Navigator.of(context).pushNamed('/home');
                                   }, //QUITボタンを押してリセット
                                 ),
