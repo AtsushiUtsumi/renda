@@ -57,19 +57,12 @@ Container cr() {
     ),
   );
 }
-/*
-Container myButton(_HomePageState pointer){
-  return Container(child: ElevatedButton(onPressed: (){pointer.setState(() {
-    mode = (mode+1)%3;print(mode.toString()+'にモードチェンジ');
-  });}, child: Text('引き継ぎたい')));
-}
-*/
 //以下ホームページのメイン
 /////////////////////////////////////////////////////////////////////////
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
       resizeToAvoidBottomInset: false, //これ設定しないとキーボードが表示されるとき崩れる
       body: SafeArea(
@@ -181,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                                                     '10s',
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 15),
+                                                        fontSize: 18),
                                                   )),
                                                 ),
                                               )),
@@ -214,7 +207,7 @@ class _HomePageState extends State<HomePage> {
                                                     '60s',
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 15),
+                                                        fontSize: 18),
                                                   ),
                                                 ),
                                               )),
@@ -246,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                                                     'ENDLESS',
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 13),
+                                                        fontSize: 16),
                                                   ),
                                                 ),
                                               )),
@@ -285,7 +278,7 @@ class _HomePageState extends State<HomePage> {
                                             'PLAY!',
                                             style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 20),
+                                                fontSize: 30),
                                           ))),
                                         ),
                                       ),

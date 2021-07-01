@@ -3,6 +3,9 @@ import 'package:renda/global.dart';
 
 
 Container highScoreBoard(){
+  String high0 = getUserData(pName, 0);
+  String high1 = getUserData(pName, 1);
+  String high2 = getUserData(pName, 2);
   return Container(
     constraints: BoxConstraints.expand(),
     child: Row(
@@ -22,8 +25,7 @@ Container highScoreBoard(){
               ),
               Align(
                 alignment: Alignment.center,
-                child: Text(
-                  getUserData(pName, 0),
+                child: Text(high0,
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -45,8 +47,7 @@ Container highScoreBoard(){
               ),
               Align(
                 alignment: Alignment.center,
-                child: Text(
-                  getUserData(pName, 1),
+                child: Text(high1,
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -69,7 +70,7 @@ Container highScoreBoard(){
               Align(
                 alignment: Alignment.center,
                 child: Text(
-                  getUserData(pName, 2),
+                  high2,
                   style: TextStyle(color: Colors.white),
                 ),
               ),

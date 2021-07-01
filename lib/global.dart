@@ -4,6 +4,7 @@ String pName = '内海';
 Map<String,List<int>> data = {};
 
 void setUserData(String username,int mode,int score){//ハイスコアを登録
+  if(pName==''){return;}
   if(mode<0 || mode>2){print('不正なモード : '+mode.toString());return;}
   if(data.containsKey(username)){
     if(data[username]![mode]<score){data[username]![mode] = score;}
