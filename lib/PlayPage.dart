@@ -8,8 +8,10 @@ import 'global.dart';
 String scoreBoard = '';
 
 void playInit(int mode){//PLAYボタンを押した時ページ遷移の前に呼ばれる
+  score = 0;
+  print('//////////////////////////////'+mode.toString()+'モードで初期化が呼ばれました');
   if(mode==2){
-    if(getUserData(pName, 2)=='---'){score = 0;}else{score = data[pName]![2];}
+    List<int>? tmp = data[pName];if(tmp!=null){score = tmp[2];if(score<0){score=0;}print('過去の履歴あった'+score.toString());}
     scoreBoard = score.toString();
   }else{
     scoreBoard = '   Press any\nbutton to start';
@@ -28,18 +30,13 @@ int elapsedTime = 0;//経過時間
 final limitTime = [10000,60000,-1];//ミリ秒で時間制限
 final ini = ['10.00','60.00','NO LIMIT'];
 
-//List<int> highScore = List.generate(3, (index) => 0);
-
 class PlayPage extends StatefulWidget {
   @override
   _PlayPageState createState() => _PlayPageState();
 }
 
 class _PlayPageState extends State<PlayPage> {
-  int score = 0;
-
   bool shouldMove = false;//テロップを止めたいときはfalseにしとくガスの元栓みたいな感じ
-
   String timeBoard = '00.00';
   // ストリームコントローラにしかアクセスを認めない
 
@@ -146,7 +143,6 @@ class _PlayPageState extends State<PlayPage> {
                                     shouldMove = false;
                                     timeMove = false;
                                     startTime = 0;
-                                    score = 0;//これどこで定義されてる
                                     if(data[pName]![mode]==-1){score = -1;}
                                     Navigator.of(context).pushNamed('/home');
                                   }, //QUITボタンを押してリセット

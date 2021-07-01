@@ -111,6 +111,7 @@ class _HomePageState extends State<HomePage>{
                     child: Container(
                       margin: EdgeInsets.only(bottom: 13,top: 8),
                       child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,//これでテキスト上以外でも反応するように!
                         child: Container(
                           child: Align(
                             alignment: Alignment.center,
